@@ -44,6 +44,21 @@
 
 # Arquivos estáticos
 
+- Pare o servidor apertando CTRL+C no terminal
 - Crie uma pasta *static* na raiz do projeto
 - Adicione *style.css* e *script.js* a pasta *static*
-- Em config/settings.py, abaixo de STATIC_URL adicione `STATTICFILES_DIRS = [BASE_DIR / "static"]`
+- Em *config/settings.py*, abaixo de STATIC_URL adicione `STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)`
+- Depois mais abaixo, `STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")`
+- em *config/urls.py*, adicione o caminho para os arquivos estáticos
+- Em *templates/index.html*:
+    - No topo adicione `{% load static %}`
+    - Troque `href="style.css"` por `href={% static "style.css" %}`
+    - Troque `src="script.js"` por `src={% static 'script.js' %}`
+- Rode o servidor: `python manage.py runserver`
+- Acesse `http://localhost:8000`
+
+# Momento importante
+
+- Se criar um card, ele aparecerá, mas ao apertar F5 ele some. 
+- Queremos persistir essas informações no banco de dados.
+- Com o Django buscaremos esses objetos e enviaremos para o template via contexto na view.
