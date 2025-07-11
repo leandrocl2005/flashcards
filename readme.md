@@ -1,0 +1,49 @@
+## Configuração inicial
+
+- Crie uma pasta chamada *flashcards* (será a pasta raiz do projeto)
+- Abra esta pasta com o Vs Code
+- Crie um ambiente virtual: `python -m venv env`
+- Ative o ambiente virtual: `. env/Scripts/activate`
+- Instale as seguintes extensões do Vs Code:
+    - Python
+    - Pylance
+    - autopep8
+    - Better Jinja
+    - Black Formatter
+    - Flake8
+    - Python Environments
+- Conecte seu VS code ao seu ambiente virtual
+- Adicione a raíz do projeto as configurações *.vscode* (ver repositório)
+- Adicione a raíz do projeto o arquivo .gitignore (ver repositório)
+- Instale o django: `pip install django`
+- Crie o projeto Django: `django-admin startproject config .`
+- Crie o app flash cards: `python manage.py startapp flashcards`
+- Adicione *'flashcards'* em *config/settings.py* em `INSTALLED_APPS`
+- Crie o modelo FlashCard em *flashcards/models.py* (ver repositório)
+- Crie as migrações: `python manage.py makemigrations`
+- Execute as migrações: `python manage.py migrate`
+- Crie o superuser: `python manage.py createsuperuser`
+- Registre o modelo FlashCard no admin do django (ver repositório *flashcards/admin.py*)
+- Rode seu projeto no servidor local: `python manage.py runserver`
+- Acesse `http://localhost:8000/admin` no seu navegador de internet
+- Faça login com o superuser
+- Crie 4 flash cards.
+
+# Renderizando templates
+
+- Pare o servidor apertando CTRL+C no terminal
+- Na raiz do projeto crie uma pasta chamada *templates*
+- Coloque o arquivo *index.html* nesta pasta
+- Em *config/settings.py* em `TEMPLATES` adicone `"DIRS": [BASE_DIR / "templates"],`
+- Crie um arquivo *flashcards/urls.py*
+- Em *config/urls.py* inclua o arquivo acima (ver repositório)
+- Em *flashcards/urls.py* aponte para a view de listagem de cards (ver repositório)
+- Em *flashcards/views.py* crie uma view para renderizar o template *index.html* (ver repositório)
+- Rode o servidor: `python manage.py runserver`
+- Acesse `http://localhost:8000`
+
+# Arquivos estáticos
+
+- Crie uma pasta *static* na raiz do projeto
+- Adicione *style.css* e *script.js* a pasta *static*
+- Em config/settings.py, abaixo de STATIC_URL adicione `STATTICFILES_DIRS = [BASE_DIR / "static"]`
