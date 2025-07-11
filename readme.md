@@ -62,3 +62,64 @@
 - Se criar um card, ele aparecerá, mas ao apertar F5 ele some. 
 - Queremos persistir essas informações no banco de dados.
 - Com o Django buscaremos esses objetos e enviaremos para o template via contexto na view.
+
+# Adaptações no template
+
+- Apague a função view_list no script.js
+- Altere o conteúdo da div de classe "card-list-container" como abaixo:
+```html
+<div class="card-list-container">
+    <div class="card">
+        <p class="question-div">Pergunta de teste</p>
+        <a href="#" class="show-hide-btn">Show/Hide</a>
+        <p class="answer-div hide">Resposta de teste</p>
+        <div class="btn-con">
+            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+    </div>
+    <div class="card">
+        <p class="question-div">Pergunta de teste</p>
+        <a href="#" class="show-hide-btn">Show/Hide</a>
+        <p class="answer-div hide">Resposta de teste</p>
+        <div class="btn-con">
+            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+    </div>
+</div>
+```
+- Em script.js, abaixo de `const closeBtn = document.getElementById("close-btn");`
+```js
+const showHideBtn = document.querySelectorAll(".show-hide-btn");
+showHideBtn.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const answerDiv = e.target.nextElementSibling;
+    answerDiv.classList.toggle("hide");
+  });
+});
+```
+- Rode o servidor: `python manage.py runserver`
+- Acesse `http://localhost:8000`
+
+# View Context
+
+- Na view adicione ao context os cards criados pelo superuser (ver repositório *flashcads/views.py*).
+- No index.html:
+```html
+<div class="card-list-container">
+    {% for card in flashcards %}
+    <div class="card">
+        <p class="question-div">{{card.question}}</p>
+        <a href="#" class="show-hide-btn">Show/Hide</a>
+        <p class="answer-div hide">{{card.answer}}</p>
+        <div class="btn-con">
+            <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+```
+- Rode o servidor: `python manage.py runserver`
+- Acesse `http://localhost:8000`

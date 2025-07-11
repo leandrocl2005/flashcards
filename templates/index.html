@@ -25,7 +25,19 @@
 
       <!-- Display Card of Question And Answers Here -->
       <div id="card-con">
-        <div class="card-list-container"></div>
+        <div class="card-list-container">
+          {% for card in flashcards %}
+          <div class="card">
+              <p class="question-div">{{card.question}}</p>
+              <a href="#" class="show-hide-btn">Show/Hide</a>
+              <p class="answer-div hide">{{card.answer}}</p>
+              <div class="btn-con">
+                  <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
 
