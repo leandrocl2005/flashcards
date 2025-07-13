@@ -3,6 +3,18 @@
 - Disciplina de Business e Analytics.
 - UFTM - 1s 2025
 
+<img src="thumb.png" width="400px">
+
+## Requisitos
+
+- Instalado Vs Code
+- Instalado Python
+- Templates: https://codingartistweb.com/2022/08/flashcard-app-with-javascript/
+- Link do repositório: https://github.com/leandrocl2005/flashcards
+- Pegar *readme.md* no repositório indicado na aula
+
+### Commit e264859
+
 ## Configuração inicial
 
 - Crie uma pasta chamada *flashcards* (será a pasta raiz do projeto)
@@ -16,6 +28,7 @@
     - Better Jinja
     - Black Formatter
     - Flake8
+    - Live Server
     - Python Environments
 - Conecte seu VS code ao seu ambiente virtual
 - Adicione a raíz do projeto as configurações *.vscode* (ver repositório)
@@ -47,6 +60,8 @@
 - Rode o servidor: `python manage.py runserver`
 - Acesse `http://localhost:8000`
 
+### Commit ae6b8c9
+
 # Arquivos estáticos
 
 - Pare o servidor apertando CTRL+C no terminal
@@ -57,8 +72,8 @@
 - em *config/urls.py*, adicione o caminho para os arquivos estáticos
 - Em *templates/index.html*:
     - No topo adicione `{% load static %}`
-    - Troque `href="style.css"` por `href={% static "style.css" %}`
-    - Troque `src="script.js"` por `src={% static 'script.js' %}`
+    - Troque `href="style.css"` por `href="{% static 'style.css' %}"`
+    - Troque `src="script.js"` por `src="{% static 'script.js' %}"`
 - Rode o servidor: `python manage.py runserver`
 - Acesse `http://localhost:8000`
 
@@ -128,3 +143,25 @@ showHideBtn.forEach((btn) => {
 ```
 - Rode o servidor: `python manage.py runserver`
 - Acesse `http://localhost:8000`
+
+# Deletar cards
+
+- No *index.html* troque `<button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>` por
+```html
+<form method="POST" action="#">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ card.id }}">
+    <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+</form>
+```
+- No *index.html* troque `<button class="delete"><i class="fa-solid fa-trash-can"></i></button>` por
+```html
+<form method="POST" action="#">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ card.id }}">
+    <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+</form>
+```
+- Em *flashcards/urls.py* adicione o path `/delete` (ver repositório)
+- Em *flashcards/views.py* adicione a função para deletar o card (ver repositório)
+- No form para deletar, altere action para `action="{% url 'delete_flashcard' id=card.id%}"`

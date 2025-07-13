@@ -32,8 +32,16 @@
               <a href="#" class="show-hide-btn">Show/Hide</a>
               <p class="answer-div hide">{{card.answer}}</p>
               <div class="btn-con">
+                <form method="POST" action="#">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ card.id }}">
                   <button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                </form>
+                <form method="POST" action="{% url 'delete_flashcard' id=card.id%}">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ card.id }}">
                   <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
               </div>
           </div>
           {% endfor %}
