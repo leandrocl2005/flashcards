@@ -144,6 +144,8 @@ showHideBtn.forEach((btn) => {
 - Rode o servidor: `python manage.py runserver`
 - Acesse `http://localhost:8000`
 
+### Commit 27fe0fc
+
 # Deletar cards
 
 - No *index.html* troque `<button class="edit"><i class="fa-solid fa-pen-to-square"></i></button>` por
@@ -162,6 +164,52 @@ showHideBtn.forEach((btn) => {
     <button class="delete"><i class="fa-solid fa-trash-can"></i></button>
 </form>
 ```
+- No css `btn-con`
 - Em *flashcards/urls.py* adicione o path `/delete` (ver repositório)
 - Em *flashcards/views.py* adicione a função para deletar o card (ver repositório)
-- No form para deletar, altere action para `action="{% url 'delete_flashcard' id=card.id%}"`
+- No form para deletar, altere action para `action="{% url 'delete_flashcard' id=card.id %}"`
+
+### Criar flashcards
+- Crie o FlashCardForm em *flashcards/forms.py* (ver repositório)
+- No *index.html* troque toda div "question-container" por
+```html
+<div class="question-container {% if not form.errors %}hide{% endif %}" id="add-question-card">
+    <h2>Add Flashcard</h2>
+    <form method="POST" action="{% url 'create_flashcard' %}">
+    {% csrf_token %}
+
+    <div class="wrapper">
+        <!-- Error message -->
+        <div class="error-con">
+        <span id="error">{{ form.non_field_errors }}</span>
+        <span id="error">{{ form.question.errors }}</span>
+        <span id="error"> {{ form.answer.errors }}</span>
+        </div>
+        <!-- Close Button -->
+        <i class="fa-solid fa-xmark" id="close-btn"></i>
+    </div>
+
+    <label for="question">Question:</label>
+    {{form.question}}
+
+    <label for="answer">Answer:</label>
+    {{form.answer}}
+    
+    <button id="save-btn" type="submit">Save</button>
+    </form>
+</div>
+```
+- Faça a seguinte alteração na div container:
+```html
+<div class="container {% if form.errors %}hide{% endif %}">
+```
+- No css em `#save-btn` adicione  `width: 100%;`
+- Em *flashcards/urls.py* adicione o path `/create` (ver repositório)
+- Em *flashcards/views.py* adicione a função para criar o card (ver repositório)
+- Rode o servidor: `python manage.py runserver`
+- Testes:
+    - Teste se é possível criar um novo card
+    - Verifique no admin se foi criado
+    - Teste se é possível remover um card
+    - Verifique no admin se foi deletado
+    - Teste se é possível criar perguntas e respostas com menos de 5 caracteres
