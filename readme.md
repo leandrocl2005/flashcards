@@ -1,3 +1,8 @@
+## Tutorial de Django
+
+- Disciplina de Business e Analytics.
+- UFTM - 1s 2025
+
 ## Configuração inicial
 
 - Crie uma pasta chamada *flashcards* (será a pasta raiz do projeto)
@@ -63,9 +68,9 @@
 - Queremos persistir essas informações no banco de dados.
 - Com o Django buscaremos esses objetos e enviaremos para o template via contexto na view.
 
-# Adaptações no template
+# Adaptações no template para listar os cards
 
-- Apague a função view_list no script.js
+- Apague a função view_list no *script.js*
 - Altere o conteúdo da div de classe "card-list-container" como abaixo:
 ```html
 <div class="card-list-container">
